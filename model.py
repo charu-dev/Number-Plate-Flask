@@ -307,6 +307,7 @@ def filter(lst):
   
     return lst
 
+# img=app.py se jo imgage aaegi ;
 img = cv2.imread('a0.png')
 lp = img.copy()
 # cv2_imshow(img)
