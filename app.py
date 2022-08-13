@@ -232,7 +232,7 @@ dicte = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8',
 
 import keras
 import keras.utils
-
+import numpy
 model = keras.models.load_model('model1.h5')
 
 def filter(lst):
@@ -347,12 +347,20 @@ def predict():
     form = UploadFileForm()
     if form.validate_on_submit():
         
-        file = form.file.data 
-        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),flask_app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
+        file = form.file.data
         
-        print("rester",file)
-        img = cv2.imread('test2.png')
+        img2 = cv2.imread('test.png')
+        # img2=cv2.imdecode(np.frombuffer(file.decode('utf-8'), numpy.uint8), cv2.IMREAD_COLOR)
+
+        filestr = request.files['file'].read()
+        #convert string data to numpy array
+        npimg = numpy.fromstring(filestr, numpy.uint8)
+        # convert numpy array to image
+        img = cv2.imdecode(npimg, cv2.IMREAD_UNCHANGED)
+
+        print("rester",file,type(img2),type(img))
         images = pred(img)
+        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),flask_app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
 
         ans = []
         for img in images:
