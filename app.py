@@ -343,48 +343,30 @@ def predict():
     dicte = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B', 12: 'C',
          13: 'D', 14: 'E', 15: 'F', 16: 'G', 17: 'H', 18: 'I', 19: 'J', 20: 'K', 21: 'L', 22: 'M', 23: 'N', 24: 'O',
          25: 'P', 26: 'Q', 27: 'R', 28: 'S', 29: 'T', 30: 'U', 31: 'V', 32: 'W', 33: 'X', 34: 'Y', 35: 'Z'}
-
-
-
+    
     form = UploadFileForm()
-    print("aata")
     if form.validate_on_submit():
         
         file = form.file.data 
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),flask_app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
         
-        # img=app.py se jo imgage aaegi ;
-        img = cv2.imread('test.png')
-        lp = img.copy()
-        # cv2_imshow(img)
+        print("rester",file)
+        img = cv2.imread('test2.png')
         images = pred(img)
 
         ans = []
-        # cv2_imshow(img)
         for img in images:
-            # cv2_imshow(img)
             a = np.argmax(model.predict(img.reshape(1,28,28,1)))
             ans.append(dicte[a])
 
-        print(ans)
-
         fin_ans = filter(ans)
-        # print(len(ans))
         print(fin_ans)
         prediction=fin_ans
-        # cv2_imshow(lp)
-        j = 0
-        print("LICENSE PLATE")
-        for e in fin_ans:
-            print(e,end=' ')
-            j+=1
-            if j==2 or j==4 or j==6:
-                print('', end=' ')
 
         
         return render_template("result.html",prediction_text = "The predicted car number is {}".format(prediction))
     prediction="c c charu"
-    return render_template("index.html", form=form, prediction_text = "The predicted car number is {}".format(prediction))
+    return render_template("index.html", form=form, prediction_text = "The dummy car number is {}".format(prediction))
    
 
 
