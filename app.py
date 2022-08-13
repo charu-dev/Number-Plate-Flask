@@ -361,7 +361,7 @@ def predict():
 
         print("rester",file,type(img2),type(img))
         images = pred(img)
-        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),flask_app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
+        # file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),flask_app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
 
         ans = []
         for img in images:
