@@ -353,7 +353,6 @@ def predict():
         # img2=cv2.imdecode(np.frombuffer(file.decode('utf-8'), numpy.uint8), cv2.IMREAD_COLOR)
 
 
-
         filestr = request.files['file'].read()
         #convert string data to numpy array
         npimg = numpy.fromstring(filestr, numpy.uint8)
